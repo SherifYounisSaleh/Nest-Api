@@ -15,7 +15,7 @@ import {Users} from './store-book/Entity/users'
       username: 'postgres',
       password: 'Sherif3m@',
       database: 'FWD',
-      entities:['D:/Node projects/test-typeorm-Nest/nest-postgres/dist/store-book/Entity/users.js'],//__dirname +
+      entities:[Users],//'D:/Node projects/test-typeorm-Nest/nest-postgres/dist/store-book/Entity/users.js'
      
   })],
   controllers: [AppController],

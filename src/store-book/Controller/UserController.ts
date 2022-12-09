@@ -1,4 +1,4 @@
-import { Controller, Get, Render, Logger,Res ,Param, Patch, Body, Delete,Post} from '@nestjs/common';
+import { Controller, Get, Render, Logger,Res ,Param, Patch, Body, Delete,Post ,ParseIntPipe} from '@nestjs/common';
 import { throws } from 'assert';
 import {UserService} from  '../services/UserService'
 import {Users} from '../Entity/users'
@@ -25,7 +25,7 @@ export class UserController {
 
     @Get('/get/:id')
     @Render('user/get/:id')
-    async get(@Param('id') id:number,@Res() response) {
+    async get(@Param('id',ParseIntPipe) id:number,@Res() response) {
         this.log.log(__dirname +'../store-book/Entity/users.js')
         const viewData = await this.usersService.findOne(id);
         this.log.log(await this.usersService.findOne(id));
@@ -35,7 +35,7 @@ export class UserController {
     }
     @Patch('/update/:id')
     @Render('user/update/:id')
-    async update(@Param('id') id:number,@Body() Body: Users,@Res() response) {
+    async update(@Param('id',ParseIntPipe) id:number,@Body() Body: Users,@Res() response) {
         
         this.log.log(`${Body.id} - ${Body.email} -${Body.first_name} - ${Body.last_name} - ${Body.created_at}` );
          await this.usersService.update(id,Body);
@@ -45,7 +45,7 @@ export class UserController {
 
     @Delete('/delete/:id')
     @Render('user/delete/:id')
-    async delete(@Param('id') id:number,@Res() response) {
+    async delete(@Param('id',ParseIntPipe) id:number,@Res() response) {
          this.usersService.delete(id)
          response.status(200).send(`the user id ${id} was deleted`);
            
@@ -60,4 +60,4 @@ export class UserController {
          response.status(200).send(`the user id ${Body.id} was inserted`);
            
     }
-}
+}      
